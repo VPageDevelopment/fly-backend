@@ -8,15 +8,41 @@ module.exports = function (app) {
   
     email: {
       type: Sequelize.STRING,
-      allowNull: true,
+      allowNull: false,
       unique: true
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: true
+      allowNull: false
     },
-  
-  
+    username:{
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true
+    },
+    mobileNumber:{
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      unique: true
+    },
+    status:{
+      type:Sequelize.ENUM,
+      values:['active','inactive'],
+      allowNull:false,
+      defaultValue:'active',
+    },
+    role:{
+      type:Sequelize.ENUM,
+      values:['user','employee','admin'],
+      allowNull:false,
+      defaultValue:'user'
+    },
+    userID:{
+      type:Sequelize.INTEGER.UNSIGNED,
+      primaryKey:true,
+      autoIncrement:true,
+      allowNull:false
+    }
   }, {
     hooks: {
       beforeCount(options) {
