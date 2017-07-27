@@ -836,9 +836,9 @@ feathers-rest@^1.8.0:
     feathers-errors "^2.0.1"
     qs "^6.4.0"
 
-feathers-sequelize@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/feathers-sequelize/-/feathers-sequelize-2.1.0.tgz#37f26204af9110f01b17b2590518d5e1074ae535"
+feathers-sequelize@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/feathers-sequelize/-/feathers-sequelize-2.2.0.tgz#95b34fb175c1788adc5f824d6f19e20b28edd20f"
   dependencies:
     feathers-commons "^0.8.4"
     feathers-errors "^2.0.1"

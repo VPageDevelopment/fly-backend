@@ -41,7 +41,7 @@
     "feathers-hooks": "^2.0.2",
     "feathers-hooks-common": "^3.5.5",
     "feathers-rest": "^1.8.0",
-    "feathers-sequelize": "^2.1.0",
+    "feathers-sequelize": "^2.2.0",
     "helmet": "^3.8.0",
     "mysql2": "^1.3.6",
     "sequelize": "^4.4.2",

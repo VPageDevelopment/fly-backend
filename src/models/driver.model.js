@@ -4,16 +4,12 @@ const Sequelize = require('sequelize');
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
-  const booking = sequelizeClient.define('booking', {
-    bookingID:{
+  const driver = sequelizeClient.define('driver', {
+     driverID:{
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
       primaryKey:true,
       allowNull:false
-    },
-    text: {
-      type: Sequelize.STRING,
-      allowNull: false
     }
   }, {
     hooks: {
@@ -23,10 +19,15 @@ module.exports = function (app) {
     }
   });
 
-  booking.associate = function (models) { // eslint-disable-line no-unused-vars
+  driver.associate = function (models) { // eslint-disable-line no-unused-vars
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+
+    driver.hasMany(models.vehicle, {
+      foreignKey:"driverID"
+    });
+
   };
 
-  return booking;
+  return driver;
 };

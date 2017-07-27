@@ -21,9 +21,19 @@ module.exports = function (app) {
       unique: true
     },
     mobileNumber:{
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      unique: true
+       type:Sequelize.BIGINT,
+        unique:true,
+        allowNull:false,
+        validate:{
+           not:{
+               args:["[a-z]",'i'],
+               msg:"Please enter a valid number"
+           },
+           len:{
+               args:[10,20],
+               msg:"Min length of the phone number is 10"
+           }
+        }
     },
     status:{
       type:Sequelize.ENUM,
@@ -37,10 +47,10 @@ module.exports = function (app) {
       allowNull:false,
       defaultValue:'user'
     },
-    userID:{
-      type:Sequelize.INTEGER.UNSIGNED,
+    id:{
+      type: Sequelize.UUID,
       primaryKey:true,
-      autoIncrement:true,
+      defaultValue: Sequelize.UUIDV4,
       allowNull:false
     }
   }, {
@@ -51,9 +61,15 @@ module.exports = function (app) {
     }
   });
 
-  users.associate = function (models) { // eslint-disable-line no-unused-vars
+  users.associate = function (models) { 
+    // eslint-disable-line no-unused-vars
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+
+    users.hasMany(models.booking, {
+      foreignKey:"userID"
+    });
+
   };
 
   return users;
