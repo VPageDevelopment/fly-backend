@@ -47,6 +47,12 @@ module.exports = function (app) {
       allowNull:false,
       defaultValue:'user'
     },
+    trems:{
+      type:Sequelize.ENUM,
+      values:["YES","NO"],
+      allowNull:false,
+      defaultValue:"YES"
+    },
     id:{
       type: Sequelize.UUID,
       primaryKey:true,
