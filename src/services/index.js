@@ -5,6 +5,7 @@ const vendor = require('./vendor/vendor.service.js');
 const driver = require('./driver/driver.service.js');
 const tax = require('./tax/tax.service.js');
 const plan = require('./plan/plan.service.js');
+const customers = require('./customers/customers.service.js');
 module.exports = function () {
   const app = this; // eslint-disable-line no-unused-vars
   app.configure(booking);
@@ -14,4 +15,5 @@ module.exports = function () {
   app.configure(driver);
   app.configure(tax);
   app.configure(plan);
+  app.configure(customers);
 };
