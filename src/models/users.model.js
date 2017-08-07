@@ -5,7 +5,6 @@ const Sequelize = require('sequelize');
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const users = sequelizeClient.define('users', {
-  
     email: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -21,7 +20,7 @@ module.exports = function (app) {
       unique: true
     },
     mobileNumber:{
-       type:Sequelize.BIGINT,
+        type:Sequelize.BIGINT,
         unique:true,
         allowNull:false,
         validate:{
@@ -39,7 +38,7 @@ module.exports = function (app) {
       type:Sequelize.ENUM,
       values:['active','inactive'],
       allowNull:false,
-      defaultValue:'active',
+      defaultValue:'active'
     },
     role:{
       type:Sequelize.ENUM,
@@ -71,10 +70,8 @@ module.exports = function (app) {
     // eslint-disable-line no-unused-vars
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    users.hasMany(models.booking, {
-      foreignKey:"userID"
-    });
     
+    users.belongsToMany(models.booking , {through:'userBooking'});
   };
 
   return users;

@@ -22,6 +22,7 @@ module.exports = function (app) {
   plan.associate = function (models) { // eslint-disable-line no-unused-vars
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+    plan.belongsToMany(models.customers, {through:'customerPlan'});
   };
 
   return plan;

@@ -11,9 +11,30 @@ module.exports = function (app) {
       primaryKey:true,
       allowNull:false
     },
-     name: {
-      type: Sequelize.STRING,
-      allowNull: false
+     driverName: {
+      type:Sequelize.STRING,
+        allowNull:false,
+        validate:{
+            isAlpha:{
+                args:true,
+                msg:"User name should contain only letter"
+            }
+        }
+    },
+    mobileNumber: {
+      type:Sequelize.BIGINT,
+      unique:true,
+      allowNull:false,
+      validate:{
+        not:{
+            args:["[a-z]",'i'],
+            msg:"Please enter a valid number"
+        },
+        len:{
+            args:[10,20],
+            msg:"Min length of the phone number is 10"
+        }
+      }
     }
   }, {
     hooks: {

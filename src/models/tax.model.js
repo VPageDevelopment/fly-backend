@@ -10,7 +10,27 @@ module.exports = function (app) {
       defaultValue: Sequelize.UUIDV4,
       primaryKey:true,
       allowNull:false
-    }
+    },
+     taxName:{
+        type:Sequelize.STRING,
+        allowNull:false,
+        validate:{
+            isAlpha:{
+                args:true,
+                msg:"User name should contain only letter"
+            }
+        }
+    },
+    taxValue:{
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        validate:{
+             not:{
+               args:["[a-z]",'i'],
+               msg:"Please enter a valid number"
+           }
+        }
+    },
   }, {
     hooks: {
       beforeCount(options) {
