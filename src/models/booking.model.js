@@ -2,6 +2,7 @@
 // for more of what you can do here.
 const Sequelize = require('sequelize');
 
+
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const booking = sequelizeClient.define('booking', {
