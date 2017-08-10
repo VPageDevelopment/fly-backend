@@ -5,103 +5,98 @@ const Sequelize = require('sequelize');
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const vehicle = sequelizeClient.define('vehicle', {
-     vehicleID:{
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-      primaryKey:true,
-      allowNull:false
-    },
-    vehicleName:{
+    
+    name:{
       type:Sequelize.STRING,
       allowNull:false
     },
-    vehicleType:{
+    type:{
       type:Sequelize.STRING,
       allowNull:false
     },
-    vehicleModle:{
+    model:{
       type:Sequelize.STRING,
       allowNull:false
     },
-    vehicleRegNo:{
+    regNo:{
       type:Sequelize.STRING,
       allowNull:false
     },
-    vehicleFuelType:{
+    fuelType:{
       type:Sequelize.ENUM,
-      values:['d','p','g'],
+      values:['diesel','petrol','gas'],
       allowNull:true
     },
-    vehicleColor:{
-      type:Sequelize.STRING,
-      allowNull:false,
-      validate:{
-          isAlpha:{
-              args:true,
-              msg:"User name should contain only letter"
-          }
-      }
-    },
-    vehicleSize:{
+    color:{
       type:Sequelize.STRING,
       allowNull:false
     },
-    vehicleEngineNumber:{
+    size:{
       type:Sequelize.STRING,
-      allowNull:true,
+      allowNull:false
     },
-    vehicleChasisNumber:{
+    engineNo:{
       type:Sequelize.STRING,
-      allowNull:true,
+      allowNull:true
     },
-    vehicleBatterySerialNumber:{
+    chasisNo:{
       type:Sequelize.STRING,
-      allowNull:true,
+      allowNull:true
     },
-    vehicleSeatCapacity:{
+    batterySNo:{
       type:Sequelize.STRING,
-      allowNull:true,
+      allowNull:true
     },
-    vehicleRTOTaxFrom:{
+    seatCapacity:{
+      type:Sequelize.STRING,
+      allowNull:true
+    },
+    rtoTaxFrom:{
       type:Sequelize.DATEONLY,
       allowNull:true
     },
-    vehicleRTOTaxTo:{
+    rtoTaxTo:{
       type:Sequelize.DATEONLY,
       allowNull:true
     },
-    vehicleIncuranceDateFrom:{
+    insuranceDateFrom:{
       type:Sequelize.DATEONLY,
       allowNull:true
     },
-    vehicleIncuranceDateTo:{
+    insuranceDateTo:{
       type:Sequelize.DATEONLY,
       allowNull:true
     },
-    vehicleFitnessDateFrom:{
+    fitnessDateFrom:{
       type:Sequelize.DATEONLY,
       allowNull:true
     },
-    vehicleFitnessDateTo:{
+    fitnessDateTo:{
       type:Sequelize.DATEONLY,
       allowNull:true
     },
-    vehicleAuthDateFrom:{
+    authDateFrom:{
       type:Sequelize.DATEONLY,
       allowNull:true
     },
-    vehicleAuthDateTo:{
+    authDateTo:{
       type:Sequelize.DATEONLY,
       allowNull:true
     },
-    vehiclePermitNo:{
+    permitNo:{
       type:Sequelize.INTEGER,
       allowNull:true
     },
-    vehicleFitnessCertificateNo:{
+    fitnessCertificateNo:{
       type:Sequelize.INTEGER,
       allowNull:true
-    }
+    },
+    status:{
+      type:Sequelize.ENUM,
+      values:['active','inactive'],
+      allowNull:false,
+      defaultValue:'active'
+    },
     
   }, {
     hooks: {
@@ -111,12 +106,10 @@ module.exports = function (app) {
     }
   });
 
-  vehicle.associate = function (models) { // eslint-disable-line no-unused-vars
-    // Define associations here
-    // See http://docs.sequelizejs.com/en/latest/docs/associations/
+  vehicle.associate = function (models) { 
     vehicle.belongsTo(models.vendor);
-    vehicle.belongsToMany(models.booking, {through:'vehicleBooking'});
-
+    vehicle.hasMany(models.booking, {as:'vehicleBooking'});
+    vehicle.belongsToMany(models.driver, {through:'driverVechile'});
   };
 
 

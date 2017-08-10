@@ -6,12 +6,6 @@ const Sequelize = require('sequelize');
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const booking = sequelizeClient.define('booking', {
-    bookingID:{
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-      primaryKey:true,
-      allowNull:false
-    },
     pickUpLocation:{
         type:Sequelize.STRING,
         allowNull:false,
@@ -102,17 +96,18 @@ module.exports = function (app) {
     hooks: {
       beforeCount(options) {
         options.raw = true;
-      }
+      },
+      
     }
   });
 
   booking.associate = function (models) { // eslint-disable-line no-unused-vars
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    
-    booking.belongsToMany(models.customers , {through:'customerBooking'});
-    booking.belongsToMany(models.users , {through:'userBooking'});
-    booking.belongsToMany(models.vehicle , {through:'vehicleBooking'});
+    booking.belongsTo(models.customers);
+    booking.belongsTo(models.users);
+    booking.belongsTo(models.driver);
+    booking.belongsTo(models.vehicle);
 
   };
 

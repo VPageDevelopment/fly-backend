@@ -5,36 +5,42 @@ const Sequelize = require('sequelize');
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const driver = sequelizeClient.define('driver', {
-     driverID:{
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-      primaryKey:true,
-      allowNull:false
-    },
-     driverName: {
+ 
+    name: {
       type:Sequelize.STRING,
-        allowNull:false,
-        validate:{
-            isAlpha:{
-                args:true,
-                msg:"User name should contain only letter"
-            }
-        }
+      allowNull:false
     },
     mobileNumber: {
       type:Sequelize.BIGINT,
       unique:true,
+      allowNull:false
+    },
+    address: {
+      type:Sequelize.STRING,
+      allowNull:false
+    },
+    
+    city: {
+      type:Sequelize.STRING,
+      allowNull:false
+    },
+    state: {
+      type:Sequelize.STRING,
+      allowNull:false
+    },
+    zipCode: {
+      type:Sequelize.STRING,
+      allowNull:false
+    },
+    country: {
+      type:Sequelize.STRING,
+      allowNull:false
+    },
+    status:{
+      type:Sequelize.ENUM,
+      values:['active','inactive'],
       allowNull:false,
-      validate:{
-        not:{
-            args:["[a-z]",'i'],
-            msg:"Please enter a valid number"
-        },
-        len:{
-            args:[10,20],
-            msg:"Min length of the phone number is 10"
-        }
-      }
+      defaultValue:'active'
     }
   }, {
     hooks: {
@@ -48,10 +54,9 @@ module.exports = function (app) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
 
-    driver.hasMany(models.booking, {
-      foreignKey:"driverID"
-    });
-
+    driver.hasMany(models.booking,{as: 'driverBookings' , });
+    driver.belongsToMany(models.vehicle , {through:'driverVechile'});
+    driver.belongsToMany( models.vendor , {through:'driverVendor'});
   };
 
   return driver;

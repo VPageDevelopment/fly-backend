@@ -1,9 +1,6 @@
 const { authenticate } = require('feathers-authentication').hooks;
 
-
-
-
-
+ 
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],

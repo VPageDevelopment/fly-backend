@@ -5,11 +5,23 @@ const Sequelize = require('sequelize');
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const plan = sequelizeClient.define('plan', {
-     planID:{
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-      primaryKey:true,
+    planName: {
+      type:Sequelize.STRING,
       allowNull:false
+    },
+    planKm: {
+      type:Sequelize.STRING,
+      allowNull:true
+    },
+    planCharge:{
+      type:Sequelize.STRING,
+      allowNull:true
+    },
+    status:{
+      type:Sequelize.ENUM,
+      values:['active','inactive'],
+      allowNull:false,
+      defaultValue:'active'
     }
   }, {
     hooks: {

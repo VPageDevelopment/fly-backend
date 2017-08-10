@@ -70,8 +70,8 @@ module.exports = function (app) {
     // eslint-disable-line no-unused-vars
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+    users.hasMany(models.booking, {as:'userBooking'});
     
-    users.belongsToMany(models.booking , {through:'userBooking'});
   };
 
   return users;
