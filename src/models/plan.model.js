@@ -5,7 +5,7 @@ const Sequelize = require('sequelize');
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const plan = sequelizeClient.define('plan', {
-    planName: {
+    planType: {
       type:Sequelize.STRING,
       allowNull:false
     },

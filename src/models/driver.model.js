@@ -19,7 +19,10 @@ module.exports = function (app) {
       type:Sequelize.STRING,
       allowNull:false
     },
-    
+    driverLNo: {
+      type:Sequelize.STRING,
+      allowNull:false
+    },
     city: {
       type:Sequelize.STRING,
       allowNull:false

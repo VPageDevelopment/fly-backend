@@ -40,6 +40,20 @@ module.exports = function (app) {
             isDate:true
         }
     },
+    pickUpTime:{
+        type:Sequelize.DATE,
+        allowNull:false,
+        validate:{
+            isDate:true
+        }
+    },
+    pickDropTime:{
+        type:Sequelize.DATE,
+        allowNull:false,
+        validate:{
+            isDate:true
+        }
+    },
     bookingStatus:{
       type:Sequelize.ENUM,
       values:['isNotAssign','inProgress' , 'completed'],
@@ -95,10 +109,11 @@ module.exports = function (app) {
   }, {
     hooks: {
       beforeCount(options) {
-        options.raw = true;
-      },
+        options.raw = false;
+      }
       
-    }
+    },
+    include:[{all:true}]
   });
 
   booking.associate = function (models) { // eslint-disable-line no-unused-vars
